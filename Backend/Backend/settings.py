@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
 import os
-
+from django.utils.translation import gettext_lazy as _
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     'contest',
     'board',
     'blog',
-    'wiki', 
+    'wiki',
     'item',
     "sslserver",
     'gunicorn',
@@ -65,7 +65,7 @@ REST_FRAMEWORK = {
         'judge': '180000/m',
         'post': '180000/m',
     },
-    'DEFAULT_AUTHENTICATION_CLASSES':(
+    'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.BasicAuthentication'
     ),
@@ -111,13 +111,12 @@ DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
         'NAME': 'LPOJ',
-        'USER': os.environ.get("DB_USER")  if os.environ.get("DB_USER") else 'root' ,
-        'PASSWORD':os.environ.get("DB_PASSWORD")  if os.environ.get("DB_PASSWORD") else 'lpojdatabase',
-        'HOST': os.environ.get("DB_HOST")  if os.environ.get("DB_HOST") else 'lpojdatabase',
-        'PORT': os.environ.get("DB_PORT")  if os.environ.get("DB_PORT") else 3306,
+        'USER': os.environ.get("DB_USER") if os.environ.get("DB_USER") else 'root',
+        'PASSWORD': os.environ.get("DB_PASSWORD") if os.environ.get("DB_PASSWORD") else 'lpojdatabase',
+        'HOST': os.environ.get("DB_HOST") if os.environ.get("DB_HOST") else 'lpojdatabase',
+        'PORT': os.environ.get("DB_PORT") if os.environ.get("DB_PORT") else 3306,
     }
 }
-
 
 
 # Password validation
@@ -142,7 +141,9 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
-
+LANGUAGES = [
+    ('zh-Hans', _('Simplified Chinese')),
+]
 LANGUAGE_CODE = 'zh-Hans'
 # TIME_ZONE = 'UTC'
 TIME_ZONE = 'Asia/Shanghai'
@@ -150,7 +151,6 @@ TIME_ZONE = 'Asia/Shanghai'
 USE_I18N = True
 
 USE_L10N = True
-
 
 
 # Static files (CSS, JavaScript, Images)
@@ -161,6 +161,6 @@ STATIC_URL = '/static/'
 CORS_ORIGIN_ALLOW_ALL = True
 CORS_ALLOW_CREDENTIALS = True
 
-SESSION_COOKIE_AGE = 60 * 60 * 12  
+SESSION_COOKIE_AGE = 60 * 60 * 12
 SESSION_SAVE_EVERY_REQUEST = True
 SESSION_EXPIRE_AT_BROWSER_CLOSE = True
